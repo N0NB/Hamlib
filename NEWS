@@ -41,6 +41,8 @@ Version 4.7.2
           system.  GitHub PR #2061 (TNX William Goodspeed)
         * src/settings.c: Directly open the file descriptor from mkstemp.  GitHub
           PR #2067.  (TNX Kai Pastor)
+        * IC-705:  Fix power2mW for Icom IC-705 on PKT* modes.  GitHub PR
+          #2069.  (TNX Daniele Forsi, Brian Coxi (reporter))
 
 Version 4.7.1
         * 2026-04-15
