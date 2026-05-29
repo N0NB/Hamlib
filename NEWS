@@ -19,7 +19,7 @@ Version 5.x -- future
           (TNX George Baltz)
 
 Version 4.7.2
-        * 2026-??-??
+        * 2026-06-15
         * FTX-1: Rewrite set_channel using VFO-B + BM workaround, also fix
           the get_channel side, auto-exit Memory mode before VFO-state
           setters, and MC cursor targeting in ftx1_set_channel.  GitHub
@@ -31,12 +31,16 @@ Version 4.7.2
         * Kenwood: New model Hamgeek uSGX.  GitHub PR #2043  (TNX Leo Pizzolante)
         * Skywatcher: Now initialize motors on rot_open.  GitHub PR #2046
           (TNX Mario Haustein)
-        * C23:  Fix errors when compiling with C23 support.  (TNX George Baltz)
-        * DX-SR8:  Fix serial configuration, timing, and control bugs.  (TNX Jeff
-          Sheldon)
-        * FT-710:  Fix FT-710 VFO swap after cross-band tune.  (TNX Mike Del Tito)
+        * C23:  Fix errors when compiling with C23 support.  GitHub PR #2048
+          (TNX George Baltz)
+        * DX-SR8:  Fix serial configuration, timing, and control bugs.  GitHub
+          PR #2052  (TNX Jeff Sheldon)
+        * FT-710:  Fix FT-710 VFO swap after cross-band tune.  GiHub PR #2063
+          (TNX Mike Del Tito)
         * Android:  Replace legacy Android build with NDK SDK in the GNU build
-          system.  (TNX William Goodspeed)
+          system.  GitHub PR #2061 (TNX William Goodspeed)
+        * src/settings.c: Directly open the file descriptor from mkstemp.  GitHub
+          PR #2067.  (TNX Kai Pastor)
 
 Version 4.7.1
         * 2026-04-15
