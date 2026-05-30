@@ -43,6 +43,8 @@ Version 4.7.2
           PR #2067.  (TNX Kai Pastor)
         * IC-705:  Fix power2mW for Icom IC-705 on PKT* modes.  GitHub PR
           #2069.  (TNX Daniele Forsi, Brian Coxi (reporter))
+        * X6100: Fix power2mW for Xiegu X6100,  GitHub PR #2070.  (TNX Johannes
+          Schwab)
 
 Version 4.7.1
         * 2026-04-15
