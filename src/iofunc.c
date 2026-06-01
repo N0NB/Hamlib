@@ -1475,9 +1475,6 @@ shortcut:
             return -RIG_EIO;
         }
 
-        // check to see if our string starts with \...if so we need more chars
-        if (total_count == 0 && rxbuffer[total_count] == '\\') { rxmax = (rxmax - 1) * 5; }
-
         total_count += (int) rd_count;
 
         if (total_count == rxmax) { break; }
