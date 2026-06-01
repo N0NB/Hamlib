@@ -85,6 +85,16 @@
         { 255,  63 } \
     } }
 
+ /**
+  * X6100 gui v1.2.0 uses ICOM format
+  */
+#define X6100_STR_CAL { 3, \
+     { \
+         {   0, -54 }, \
+         { 120,  0 }, \
+         { 241, 60 } \
+     } } \
+
 /*
  *
  * X108G channel caps.
@@ -497,7 +507,7 @@ struct rig_caps x6100_caps =
         RIG_FLT_END,
     },
 
-    .str_cal = X108G_STR_CAL,
+    .str_cal = X6100_STR_CAL,
 
     .cfgparams =  icom_cfg_params,
     .set_conf =  icom_set_conf,
