@@ -56,6 +56,7 @@ HAMLIB_EXPORT(void) rig_password_generate_secret(char *pass,
     const char *md5str = rig_make_md5(newpass);
 
     strncpy(result, md5str, HAMLIB_SECRET_LENGTH);
+    result[HAMLIB_SECRET_LENGTH] = '\0';
 
     // now that we have the md5 we'll do the AES256
 
