@@ -106,8 +106,7 @@ int is_passwordOK;
 int is_rigctld;
 extern int lock_mode; // used by rigctld
 extern powerstat_t rig_powerstat;
-
-
+pthread_key_t thread_data_key;
 
 
 /* variables for readline support */
@@ -701,6 +700,19 @@ static int next_word(char *buffer, int argc, char *argv[], int newline)
                                       \
     })
 
+
+void rigctl_parse_init(/* int threaded */)
+{
+    int retval;
+
+    retval = pthread_key_create(&thread_data_key, NULL);
+    if (retval != 0)
+    {
+	rig_debug(RIG_DEBUG_ERR, "%s: Thread data key not created\n", __func__);
+    }
+
+    return;
+}
 
 int rigctl_parse(RIG *my_rig, FILE *fin, FILE *fout, char *argv[], int argc,
                  sync_cb_t sync_cb,

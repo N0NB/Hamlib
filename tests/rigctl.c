@@ -791,6 +791,7 @@ int main(int argc, char *argv[])
 #endif
 
     elapsed_ms(&powerstat_check_time, HAMLIB_ELAPSED_SET);
+    rigctl_parse_init();     //  Not really needed here (yet)
 
     do
     {

@@ -114,17 +114,6 @@ static struct option long_options[] =
 };
 
 
-struct handle_data
-{
-    RIG *rig;
-    int sock;
-    struct sockaddr_storage cli_addr;
-    socklen_t clilen;
-    int vfo_mode;
-    int use_password;
-};
-
-
 /*
  * Prototypes
  */
@@ -979,6 +968,8 @@ int main(int argc, char *argv[])
 
 #endif
 #endif
+
+    rigctl_parse_init();
 
     /*
      * main loop accepting connections
