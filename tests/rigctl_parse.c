@@ -256,8 +256,10 @@ declare_proto_rig(set_cache);
 declare_proto_rig(get_cache);
 declare_proto_rig(halt);
 declare_proto_rig(pause);
+#if RIGCTLD_PASSWORDS
 declare_proto_rig(password);
 //declare_proto_rig(set_password);
+#endif
 declare_proto_rig(set_clock);
 declare_proto_rig(get_clock);
 declare_proto_rig(set_separator);
@@ -374,8 +376,10 @@ static struct test_table test_list[] =
     { 0xf8, "set_clock",        ACTION(set_clock),      ARG_IN | ARG_NOVFO, "local or utc or YYYY-MM-DDTHH:MM:SS.sss+ZZ or YYYY-MM-DDTHH:MM+ZZ" },
     { 0xf1, "halt",             ACTION(halt),           ARG_NOVFO },   /* rigctld only--halt the daemon */
     { 0x8c, "pause",            ACTION(pause),          ARG_IN | ARG_NOVFO, "Seconds" },
+#if RIGCTLD_PASSWORDS
     { 0x98, "password",         ACTION(password),       ARG_IN | ARG_NOVFO, "Password" },
 //    { 0x99, "set_password",     ACTION(set_password),   ARG_IN | ARG_NOVFO, "Password" },
+#endif
     { 0xa0, "set_separator",     ACTION(set_separator), ARG_IN | ARG_NOVFO, "Separator" },
     { 0xa1, "get_separator",     ACTION(get_separator), ARG_NOVFO, "Separator" },
     { 0xa2, "set_lock_mode",     ACTION(set_lock_mode), ARG_IN | ARG_NOVFO, "Locked" },
@@ -5531,7 +5535,8 @@ declare_proto_rig(pause)
     return (RIG_OK);
 }
 
-int rigctld_password_check(RIG *rig, const char *md5)
+#if RIGCTLD_PASSWORDS
+static int rigctld_password_check(RIG *rig, const char *md5)
 {
     int retval = -RIG_EINVAL;
     //fprintf(fout, "password %s\n", password);
@@ -5581,6 +5586,7 @@ declare_proto_rig(password)
 
     RETURNFUNC2(retval);
 }
+#endif
 
 #if 0 // don't think we need this yet
 /* 0x99 */

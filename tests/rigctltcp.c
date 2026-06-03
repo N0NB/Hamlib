@@ -110,7 +110,9 @@ static struct option long_options[] =
     {"debug-time-stamps", 0, 0, 'Z'},
     {"multicast-addr",  1, 0, 'M'},
     {"multicast-port",  1, 0, 'n'},
+#if RIGCTLD_PASSWORDS
     {"password",        1, 0, 'A'},
+#endif
     {"rigctld-idle",    0, 0, 'R'},
     {0, 0, 0, 0}
 };
@@ -311,6 +313,7 @@ int main(int argc, char *argv[])
             rigctld_idle = 1;
             break;
 
+#if RIIGCTLD_PASSWORDS
         case 'A':
             strncpy(rigctld_password, optarg, sizeof(rigctld_password) - 1);
             //char *md5 = rig_make_m d5(rigctld_password);
@@ -319,6 +322,7 @@ int main(int argc, char *argv[])
             printf("Secret key: %s\n", md5);
             rig_settings_save("sharedkey", md5, e_CHAR);
             break;
+#endif
 
         case 'm':
             my_model = atoi(optarg);
@@ -1395,7 +1399,9 @@ static void usage(FILE *fout)
         "  -w, --twiddle_rit=SECONDS     suppress VFOB getfreq so RIT can be twiddled\n"
         "  -x, --uplink=OPTION           set uplink get_freq ignore, option 1=Sub, 2=Main\n"
         "  -Z, --debug-time-stamps       enable time stamps for debug messages\n"
+#if RIGCTLD_PASSWORDS
         "  -A, --password=PASSWORD       set password for rigctld access (64 chars max), default none\n"
+#endif
         "  -R, --rigctltcp-idle          make rigctltcp close the rig when no clients are connected\n"
         "  -h, --help                    display this help and exit\n"
         "  -V, --version                 output version information and exit\n\n",

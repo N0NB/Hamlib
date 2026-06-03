@@ -2766,7 +2766,7 @@ int netrigctl_password(RIG *rig, const char *key1)
 
     if (retval != RIG_OK)
         {
-            rig_debug(RIG_DEBUG_ERR, "%s; retval = %d\n", __func__, retval);
+            //rig_debug(RIG_DEBUG_ERR, "%s; retval = %d\n", __func__, retval);
             retval = -RIG_EPROTO;
         }
 
