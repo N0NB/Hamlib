@@ -102,7 +102,6 @@ extern int read_history();
 
 static int chk_vfo_executed;
 char rigctld_password[65];
-int is_passwordOK;
 int is_rigctld;
 extern int lock_mode; // used by rigctld
 extern powerstat_t rig_powerstat;
@@ -723,6 +722,7 @@ int rigctl_parse(RIG *my_rig, FILE *fin, FILE *fout, char *argv[], int argc,
     unsigned char cmd;
     struct test_table *cmd_entry = NULL;
     struct rig_state *rs = STATE(my_rig);
+    struct handle_data *connection;
 
     char command[MAXARGSZ + 1] = "";
     char arg1[MAXARGSZ + 1], *p1 = NULL;
@@ -1831,7 +1831,9 @@ readline_repeat:
         else if (strcmp(cmd_entry->arg1, "Password") == 0) { preCmd = 1; }
     }
 
-    if (use_password && !is_passwordOK && (cmd_entry->arg1 != NULL) && !preCmd)
+    connection = pthread_getspecific(thread_data_key);  // Get state of this connection
+
+    if (use_password && !(connection ? connection->is_passwordOK : 0) && (cmd_entry->arg1 != NULL) && !preCmd)
     {
         rig_debug(RIG_DEBUG_ERR, "%s: password has not been provided\n", __func__);
         fflush(fin);
@@ -5548,20 +5550,27 @@ declare_proto_rig(pause)
 }
 
 #if RIGCTLD_PASSWORDS
+// Compare our known secret with remote submission
+// Returns 1 if match, 0 if not
 static int rigctld_password_check(RIG *rig, const char *md5)
 {
-    int retval = -RIG_EINVAL;
+    int retval;
+    int i, len, hits;
     //fprintf(fout, "password %s\n", password);
     //rig_debug(RIG_DEBUG_TRACE, "%s: %s == %s\n", __func__, md5, rigctld_password);
-    is_passwordOK = 0;
 
     char *mymd5 = rig_make_md5(rigctld_password);
 
-    if (strcmp(md5, mymd5) == 0)
+    /* Brute force, constant time comparison */
+    len = strlen(mymd5);
+    for (i = hits = 0; i <= len; i++)
     {
-        retval = RIG_OK;
-        is_passwordOK = 1;
+	hits += (int)(md5[i] == mymd5[i]);
     }
+
+    retval = (hits == len + 1);     // Entire string + terminator
+
+    free(mymd5);
 
     return (retval);
 }
@@ -5571,12 +5580,23 @@ declare_proto_rig(password)
 {
     int retval = -RIG_EPROTO;
     const char *key = arg1;
+    struct handle_data *connection;
 
     ENTERFUNC2;
 
     if (is_rigctld)
     {
         retval = rigctld_password_check(rig, key);
+	connection = pthread_getspecific(thread_data_key);
+        if (connection)
+        {
+            connection->is_passwordOK = retval;
+            retval = retval == 1 ? RIG_OK : -RIG_EPROTO;
+        }
+        else
+        {
+            retval = -RIG_EPROTO;
+        }
     }
     else
     {

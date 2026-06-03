@@ -1068,6 +1068,13 @@ void *handle_socket(void *arg)
         goto handle_exit;
     }
 
+    retcode = pthread_setspecific(thread_data_key, arg);
+    if (retcode != 0)
+    {
+        rig_debug(RIG_DEBUG_ERR, "%s: Could not set thread data\n", __func__);
+        // What should we do here???
+    }
+
     mutex_rigctld(1);
 
     ++client_count;
@@ -1354,6 +1361,7 @@ handle_exit:
 
 #endif
 
+    pthread_setspecific(thread_data_key, NULL);
     free(arg);
 
     pthread_exit(NULL);
