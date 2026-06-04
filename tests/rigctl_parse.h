@@ -32,6 +32,13 @@
 #define RIGCTL_PARSE_END 1
 #define RIGCTL_PARSE_ERROR 2
 
+/*
+ * Temporary disable of rigctld/rigctltcp passwords and their help text, so no expctations
+ *   of them working
+ * Set this to 1 when they are repaired
+ */
+#define RIGCTLD_PASSWORDS 1
+
 /* Data that ties each thread to a connection
  * Serves as the initial thread data, then as the state info for individual
  *   connections

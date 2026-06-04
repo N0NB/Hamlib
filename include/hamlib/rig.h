@@ -35,13 +35,6 @@
 // Our shared secret password 
 #define HAMLIB_SECRET_LENGTH 32
 
-/*
- * Temporary disable of rigctld/rigctltcp passwords and their help text, so no expctations
- *   of them working
- * Set this to 1 when they are repaired
- */
-#define RIGCTLD_PASSWORDS 1
-
 #define HAMLIB_TRACE rig_debug(RIG_DEBUG_TRACE,"%s%s(%d) trace\n",hl_stars(STATE(rig)->depth), __FILE__, __LINE__)
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 

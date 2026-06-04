@@ -1364,7 +1364,7 @@ handle_exit:
 
 #endif
 
-    pthread_setspecific(thread_data_key, NULL);      // The pthreads we're done with the data
+    pthread_setspecific(thread_data_key, NULL);      // Tell pthreads we're done with the data
     free(arg);
 
     pthread_exit(NULL);

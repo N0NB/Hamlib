@@ -5556,16 +5556,20 @@ static int rigctld_password_check(RIG *rig, const char *md5)
 {
     int retval;
     int i, len, hits;
+    char padded[HAMLIB_SECRET_LENGTH + 1];
     //fprintf(fout, "password %s\n", password);
     //rig_debug(RIG_DEBUG_TRACE, "%s: %s == %s\n", __func__, md5, rigctld_password);
 
     char *mymd5 = rig_make_md5(rigctld_password);
 
-    /* Brute force, constant time comparison */
     len = strlen(mymd5);
+    strncpy(padded, md5, HAMLIB_SECRET_LENGTH);
+    padded[HAMLIB_SECRET_LENGTH] = '\0';     // Make sure it's a terminated string
+
+    /* Brute force, constant time comparison */
     for (i = hits = 0; i <= len; i++)
     {
-	hits += (int)(md5[i] == mymd5[i]);
+	hits += (int)(padded[i] == mymd5[i]);
     }
 
     retval = (hits == len + 1);     // Entire string + terminator
@@ -5587,7 +5591,7 @@ declare_proto_rig(password)
     if (is_rigctld)
     {
         retval = rigctld_password_check(rig, key);
-	connection = pthread_getspecific(thread_data_key);
+        connection = pthread_getspecific(thread_data_key);
         if (connection)
         {
             connection->is_passwordOK = retval;
