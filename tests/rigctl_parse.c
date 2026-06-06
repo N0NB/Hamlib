@@ -5911,7 +5911,7 @@ declare_proto_rig(send_raw)
     else if (sscanf(arg1, "0x%x", &val) == 1) { termbyte[0] = val; term = termbyte; }
     else if (sscanf(arg1, "%d", &val) == 1)
     {
-        if (val < buf_len - 1)
+        if (val < buf_len - 1 && val >= 0)
         {
             // Reserve one byte more to allow padding with null
             buf_len = val + 1;
@@ -5951,7 +5951,7 @@ declare_proto_rig(send_raw)
     }
 
     reply_len = result;
-    buf[buf_len + 1] = 0; // null terminate in case it's a string
+    if (!is_binary) { buf[buf_len - 1] = 0; }  // null terminate in case it's a string
 
     if ((interactive && prompt) || (interactive && !prompt && ext_resp))
     {
