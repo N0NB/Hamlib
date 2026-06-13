@@ -193,7 +193,6 @@ unsigned char *HAMLIB_API to_bcd(unsigned char bcd_data[],
 unsigned long long HAMLIB_API from_bcd(const unsigned char bcd_data[],
                                        unsigned bcd_len)
 {
-    int i;
     freq_t f = 0;
 
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
@@ -203,7 +202,7 @@ unsigned long long HAMLIB_API from_bcd(const unsigned char bcd_data[],
         f = bcd_data[bcd_len / 2] & 0x0f;
     }
 
-    for (i = (bcd_len / 2) - 1; i >= 0; i--)
+    for (int i = (bcd_len / 2) - 1; i >= 0; i--)
     {
         f *= 10;
         f += bcd_data[i] >> 4;
@@ -231,8 +230,6 @@ unsigned char *HAMLIB_API to_bcd_be(unsigned char bcd_data[],
                                     unsigned long long freq,
                                     unsigned bcd_len)
 {
-    int i;
-
     /* '450'/4 -> 0,4;5,0 */
     /* '450'/3 -> 4,5;0,x */
 
@@ -246,7 +243,7 @@ unsigned char *HAMLIB_API to_bcd_be(unsigned char bcd_data[],
         freq /= 10;
     }
 
-    for (i = (bcd_len / 2) - 1; i >= 0; i--)
+    for (int i = (bcd_len / 2) - 1; i >= 0; i--)
     {
         unsigned char a = freq % 10;
         freq /= 10;
@@ -273,12 +270,11 @@ unsigned char *HAMLIB_API to_bcd_be(unsigned char bcd_data[],
 unsigned long long HAMLIB_API from_bcd_be(const unsigned char bcd_data[],
         unsigned bcd_len)
 {
-    int i;
     freq_t f = 0;
 
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0; i < bcd_len / 2; i++)
+    for (int i = 0; i < bcd_len / 2; i++)
     {
         f *= 10;
         f += bcd_data[i] >> 4;
@@ -522,11 +518,9 @@ static const struct
  */
 rmode_t HAMLIB_API rig_parse_mode(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; (s != NULL) && (mode_str[i].str[0] != '\0'); i++)
+    for (int i = 0 ; (s != NULL) && (mode_str[i].str[0] != '\0'); i++)
     {
         if (!strcmp(s, mode_str[i].str))
         {
@@ -549,8 +543,6 @@ rmode_t HAMLIB_API rig_parse_mode(const char *s)
  */
 const char *HAMLIB_API rig_strrmode(rmode_t mode)
 {
-    int i;
-
     // only enable if needed for debugging -- too verbose otherwise
     //rig_debug(RIG_DEBUG_TRACE, "%s called mode=0x%"PRXll"\n", __func__, mode);
 
@@ -559,7 +551,7 @@ const char *HAMLIB_API rig_strrmode(rmode_t mode)
         return "";
     }
 
-    for (i = 0 ; mode_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; mode_str[i].str[0] != '\0'; i++)
     {
         if (mode == mode_str[i].mode)
         {
@@ -581,8 +573,6 @@ const char *HAMLIB_API rig_strrmode(rmode_t mode)
  */
 int HAMLIB_API rig_strrmodes(rmode_t modes, char *buf, int buflen)
 {
-    int i;
-
     // only enable if needed for debugging -- too verbose otherwise
     //rig_debug(RIG_DEBUG_TRACE, "%s called mode=0x%"PRXll"\n", __func__, mode);
 
@@ -592,7 +582,7 @@ int HAMLIB_API rig_strrmodes(rmode_t modes, char *buf, int buflen)
         return RIG_OK;
     }
 
-    for (i = 0 ; mode_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; mode_str[i].str[0] != '\0'; i++)
     {
         if (modes & mode_str[i].mode)
         {
@@ -650,11 +640,9 @@ static const struct
  */
 vfo_t HAMLIB_API rig_parse_vfo(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; vfo_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; vfo_str[i].str[0] != '\0'; i++)
     {
         if (!strcmp(s, vfo_str[i].str))
         {
@@ -679,12 +667,10 @@ vfo_t HAMLIB_API rig_parse_vfo(const char *s)
  */
 const char *HAMLIB_API rig_strvfo(vfo_t vfo)
 {
-    int i;
-
     //a bit too verbose
     //rig_debug(RIG_DEBUG_TRACE, "%s called\n", __func__);
 
-    for (i = 0 ; vfo_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; vfo_str[i].str[0] != '\0'; i++)
     {
         if (vfo == vfo_str[i].vfo)
         {
@@ -833,11 +819,9 @@ uint64_t rig_idx2setting(int i)
  */
 int HAMLIB_API rig_bit2idx(uint64_t v)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0; i < 64; i++)
+    for (int i = 0; i < 64; i++)
     {
         if (v & rig_idx2setting(i))
         {
@@ -858,11 +842,9 @@ int HAMLIB_API rig_bit2idx(uint64_t v)
  */
 setting_t HAMLIB_API rig_parse_func(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; rig_func_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; rig_func_str[i].str[0] != '\0'; i++)
     {
         if (!strcmp(s, rig_func_str[i].str))
         {
@@ -883,11 +865,9 @@ setting_t HAMLIB_API rig_parse_func(const char *s)
 // cppcheck-suppress unusedFunction
 setting_t HAMLIB_API rig_parse_band(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; rig_bandselect_str[i].str != NULL; i++)
+    for (int i = 0 ; rig_bandselect_str[i].str != NULL; i++)
     {
         if (!strcmp(s, rig_bandselect_str[i].str))
         {
@@ -909,11 +889,9 @@ setting_t HAMLIB_API rig_parse_band(const char *s)
  */
 setting_t HAMLIB_API rot_parse_func(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; rot_func_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; rot_func_str[i].str[0] != '\0'; i++)
     {
         if (!strcmp(s, rot_func_str[i].str))
         {
@@ -934,11 +912,9 @@ setting_t HAMLIB_API rot_parse_func(const char *s)
  */
 setting_t HAMLIB_API amp_parse_func(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; amp_func_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; amp_func_str[i].str[0] != '\0'; i++)
     {
         if (!strcmp(s, amp_func_str[i].str))
         {
@@ -959,8 +935,6 @@ setting_t HAMLIB_API amp_parse_func(const char *s)
  */
 const char *HAMLIB_API rig_strfunc(setting_t func)
 {
-    int i;
-
     // too verbose to keep on unless debugging this in particular
     //rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
@@ -969,7 +943,7 @@ const char *HAMLIB_API rig_strfunc(setting_t func)
         return "";
     }
 
-    for (i = 0; rig_func_str[i].str[0] != '\0'; i++)
+    for (int i = 0; rig_func_str[i].str[0] != '\0'; i++)
     {
         if (func == rig_func_str[i].func)
         {
@@ -990,8 +964,6 @@ const char *HAMLIB_API rig_strfunc(setting_t func)
  */
 const char *HAMLIB_API rot_strfunc(setting_t func)
 {
-    int i;
-
     // too verbose to keep on unless debugging this in particular
     //rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
@@ -1000,7 +972,7 @@ const char *HAMLIB_API rot_strfunc(setting_t func)
         return "";
     }
 
-    for (i = 0; rot_func_str[i].str[0] != '\0'; i++)
+    for (int i = 0; rot_func_str[i].str[0] != '\0'; i++)
     {
         if (func == rot_func_str[i].func)
         {
@@ -1021,8 +993,6 @@ const char *HAMLIB_API rot_strfunc(setting_t func)
  */
 const char *HAMLIB_API amp_strfunc(setting_t func)
 {
-    int i;
-
     // too verbose to keep on unless debugging this in particular
     //rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
@@ -1031,7 +1001,7 @@ const char *HAMLIB_API amp_strfunc(setting_t func)
         return "";
     }
 
-    for (i = 0; amp_func_str[i].str[0] != '\0'; i++)
+    for (int i = 0; amp_func_str[i].str[0] != '\0'; i++)
     {
         if (func == amp_func_str[i].func)
         {
@@ -1210,11 +1180,9 @@ int check_level_param(RIG *rig, setting_t level, value_t val, gran_t **gran)
  */
 setting_t HAMLIB_API rig_parse_level(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; rig_level_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; rig_level_str[i].str[0] != '\0'; i++)
     {
         if (!strcmp(s, rig_level_str[i].str))
         {
@@ -1235,11 +1203,9 @@ setting_t HAMLIB_API rig_parse_level(const char *s)
  */
 setting_t HAMLIB_API rot_parse_level(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; rot_level_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; rot_level_str[i].str[0] != '\0'; i++)
     {
         if (!strcmp(s, rot_level_str[i].str))
         {
@@ -1260,14 +1226,10 @@ setting_t HAMLIB_API rot_parse_level(const char *s)
  */
 setting_t HAMLIB_API amp_parse_level(const char *s)
 {
-    int i;
-
-    rig_debug(RIG_DEBUG_VERBOSE, "%s called level=%s\n", __func__, s);
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called str=%s\n", __func__,
               amp_level_str[0].str);
 
-    for (i = 0 ; amp_level_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; amp_level_str[i].str[0] != '\0'; i++)
     {
         rig_debug(RIG_DEBUG_VERBOSE, "%s called checking=%s\n", __func__,
                   amp_level_str[i].str);
@@ -1291,8 +1253,6 @@ setting_t HAMLIB_API amp_parse_level(const char *s)
  */
 const char *HAMLIB_API rig_strlevel(setting_t level)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_CACHE, "%s called\n", __func__);
 
     if (level == RIG_LEVEL_NONE)
@@ -1300,7 +1260,7 @@ const char *HAMLIB_API rig_strlevel(setting_t level)
         return "";
     }
 
-    for (i = 0; rig_level_str[i].str[0] != '\0'; i++)
+    for (int i = 0; rig_level_str[i].str[0] != '\0'; i++)
     {
         if (level == rig_level_str[i].level)
         {
@@ -1321,8 +1281,6 @@ const char *HAMLIB_API rig_strlevel(setting_t level)
  */
 const char *HAMLIB_API rot_strlevel(setting_t level)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
     if (level == ROT_LEVEL_NONE)
@@ -1330,7 +1288,7 @@ const char *HAMLIB_API rot_strlevel(setting_t level)
         return "";
     }
 
-    for (i = 0; rot_level_str[i].str[0] != '\0'; i++)
+    for (int i = 0; rot_level_str[i].str[0] != '\0'; i++)
     {
         if (level == rot_level_str[i].level)
         {
@@ -1351,8 +1309,6 @@ const char *HAMLIB_API rot_strlevel(setting_t level)
  */
 const char *HAMLIB_API amp_strlevel(setting_t level)
 {
-    int i;
-
     //rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
     if (level == AMP_LEVEL_NONE)
@@ -1360,7 +1316,7 @@ const char *HAMLIB_API amp_strlevel(setting_t level)
         return "";
     }
 
-    for (i = 0; amp_level_str[i].str[0] != '\0'; i++)
+    for (int i = 0; amp_level_str[i].str[0] != '\0'; i++)
     {
         if (level == amp_level_str[i].level)
         {
@@ -1427,11 +1383,9 @@ static const struct
  */
 setting_t HAMLIB_API rig_parse_parm(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; rig_parm_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; rig_parm_str[i].str[0] != '\0'; i++)
     {
         if (!strcmp(s, rig_parm_str[i].str))
         {
@@ -1452,11 +1406,9 @@ setting_t HAMLIB_API rig_parse_parm(const char *s)
  */
 setting_t HAMLIB_API rot_parse_parm(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; rot_parm_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; rot_parm_str[i].str[0] != '\0'; i++)
     {
         if (!strcmp(s, rot_parm_str[i].str))
         {
@@ -1477,11 +1429,9 @@ setting_t HAMLIB_API rot_parse_parm(const char *s)
  */
 setting_t HAMLIB_API amp_parse_parm(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; amp_parm_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; amp_parm_str[i].str[0] != '\0'; i++)
     {
         if (!strcmp(s, amp_parm_str[i].str))
         {
@@ -1502,8 +1452,6 @@ setting_t HAMLIB_API amp_parse_parm(const char *s)
  */
 const char *HAMLIB_API rig_strparm(setting_t parm)
 {
-    int i;
-
 //    rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
     if (parm == RIG_PARM_NONE)
@@ -1511,7 +1459,7 @@ const char *HAMLIB_API rig_strparm(setting_t parm)
         return "";
     }
 
-    for (i = 0; rig_parm_str[i].str[0] != '\0'; i++)
+    for (int i = 0; rig_parm_str[i].str[0] != '\0'; i++)
     {
         if (parm == rig_parm_str[i].parm)
         {
@@ -1532,8 +1480,6 @@ const char *HAMLIB_API rig_strparm(setting_t parm)
  */
 const char *HAMLIB_API rot_strparm(setting_t parm)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
     if (parm == ROT_PARM_NONE)
@@ -1541,7 +1487,7 @@ const char *HAMLIB_API rot_strparm(setting_t parm)
         return "";
     }
 
-    for (i = 0; rot_parm_str[i].str[0] != '\0'; i++)
+    for (int i = 0; rot_parm_str[i].str[0] != '\0'; i++)
     {
         if (parm == rot_parm_str[i].parm)
         {
@@ -1562,8 +1508,6 @@ const char *HAMLIB_API rot_strparm(setting_t parm)
  */
 const char *HAMLIB_API amp_strparm(setting_t parm)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
     if (parm == AMP_PARM_NONE)
@@ -1571,7 +1515,7 @@ const char *HAMLIB_API amp_strparm(setting_t parm)
         return "";
     }
 
-    for (i = 0; amp_parm_str[i].str[0] != '\0'; i++)
+    for (int i = 0; amp_parm_str[i].str[0] != '\0'; i++)
     {
         if (parm == amp_parm_str[i].parm)
         {
@@ -1609,14 +1553,12 @@ static const struct
  */
 const char *HAMLIB_API rig_stragclevel(enum agc_level_e level)
 {
-    int i;
-
     if (level < 0)
     {
         return "";
     }
 
-    for (i = 0; rig_agc_level_str[i].str[0] != '\0'; i++)
+    for (int i = 0; rig_agc_level_str[i].str[0] != '\0'; i++)
     {
         if (level == rig_agc_level_str[i].level)
         {
@@ -1731,11 +1673,9 @@ static const struct
  */
 vfo_op_t HAMLIB_API rig_parse_vfo_op(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; vfo_op_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; vfo_op_str[i].str[0] != '\0'; i++)
     {
         if (!strcmp(s, vfo_op_str[i].str))
         {
@@ -1756,12 +1696,10 @@ vfo_op_t HAMLIB_API rig_parse_vfo_op(const char *s)
  */
 const char *HAMLIB_API rig_strvfop(vfo_op_t op)
 {
-    int i;
-
 // too verbose
 //    rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0; vfo_op_str[i].str[0] != '\0'; i++)
+    for (int i = 0; vfo_op_str[i].str[0] != '\0'; i++)
     {
         if (op == vfo_op_str[i].vfo_op)
         {
@@ -1801,11 +1739,9 @@ static const struct
  */
 scan_t HAMLIB_API rig_parse_scan(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; scan_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; scan_str[i].str[0] != '\0'; i++)
     {
         if (strcmp(s, scan_str[i].str) == 0)
         {
@@ -1826,8 +1762,6 @@ scan_t HAMLIB_API rig_parse_scan(const char *s)
  */
 const char *HAMLIB_API rig_strscan(scan_t rscan)
 {
-    int i;
-
 // too verbose
 //    rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
@@ -1836,7 +1770,7 @@ const char *HAMLIB_API rig_strscan(scan_t rscan)
         return "";
     }
 
-    for (i = 0; scan_str[i].str[0] != '\0'; i++)
+    for (int i = 0; scan_str[i].str[0] != '\0'; i++)
     {
         if (rscan == scan_str[i].rscan)
         {
@@ -1926,11 +1860,9 @@ static const struct
  */
 chan_type_t HAMLIB_API rig_parse_mtype(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; mtype_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; mtype_str[i].str[0] != '\0'; i++)
     {
         if (strcmp(s, mtype_str[i].str) == 0)
         {
@@ -1951,8 +1883,6 @@ chan_type_t HAMLIB_API rig_parse_mtype(const char *s)
  */
 const char *HAMLIB_API rig_strmtype(chan_type_t mtype)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
     if (mtype == RIG_MTYPE_NONE)
@@ -1960,7 +1890,7 @@ const char *HAMLIB_API rig_strmtype(chan_type_t mtype)
         return "";
     }
 
-    for (i = 0; mtype_str[i].str[0] != '\0'; i++)
+    for (int i = 0; mtype_str[i].str[0] != '\0'; i++)
     {
         if (mtype == mtype_str[i].mtype)
         {
@@ -1991,14 +1921,12 @@ static const struct
  */
 const char *HAMLIB_API rig_strspectrummode(enum rig_spectrum_mode_e mode)
 {
-    int i;
-
     if (mode == RIG_SPECTRUM_MODE_NONE)
     {
         return "";
     }
 
-    for (i = 0; rig_spectrum_mode_str[i].str[0] != '\0'; i++)
+    for (int i = 0; rig_spectrum_mode_str[i].str[0] != '\0'; i++)
     {
         if (mode == rig_spectrum_mode_str[i].mode)
         {
@@ -2508,9 +2436,7 @@ static const struct
  */
 const char *HAMLIB_API rot_strstatus(rot_status_t status)
 {
-    int i;
-
-    for (i = 0 ; rot_status_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; rot_status_str[i].str[0] != '\0'; i++)
     {
         if (status == rot_status_str[i].status)
         {
@@ -2555,9 +2481,7 @@ static const struct
  */
 const char *HAMLIB_API amp_strstatus(amp_status_t status)
 {
-    int i;
-
-    for (i = 0 ; amp_status_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; amp_status_str[i].str[0] != '\0'; i++)
     {
         if (status == amp_status_str[i].status)
         {
@@ -2595,11 +2519,9 @@ static const struct
  */
 amp_op_t HAMLIB_API amp_parse_amp_op(const char *s)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
-    for (i = 0 ; amp_op_str[i].str[0] != '\0'; i++)
+    for (int i = 0 ; amp_op_str[i].str[0] != '\0'; i++)
     {
         if (!strcmp(s, amp_op_str[i].str))
         {
@@ -2620,9 +2542,7 @@ amp_op_t HAMLIB_API amp_parse_amp_op(const char *s)
  */
 const char *HAMLIB_API amp_strampop(amp_op_t op)
 {
-    int i;
-
-    for (i = 0; amp_op_str[i].str[0] != '\0'; i++)
+    for (int i = 0; amp_op_str[i].str[0] != '\0'; i++)
     {
         if (op == amp_op_str[i].amp_op)
         {
@@ -3036,9 +2956,7 @@ static const struct
  */
 const char *HAMLIB_API rig_strcommstatus(rig_comm_status_t status)
 {
-    int i;
-
-    for (i = 0; comm_status_str[i].str[0] != '\0'; i++)
+    for (int i = 0; comm_status_str[i].str[0] != '\0'; i++)
     {
         if (status == comm_status_str[i].status)
         {
@@ -3226,8 +3144,6 @@ const char *rig_get_band_str(RIG *rig, hamlib_band_t band, int which)
 // returns the rig's backend hamlib_band_t that can used to lookup the band str
 hamlib_band_t rig_get_band(RIG *rig, freq_t freq, int band)
 {
-    int i;
-
     rig_debug(RIG_DEBUG_VERBOSE, "%s called\n", __func__);
 
     if (freq == 0)
@@ -3260,7 +3176,7 @@ hamlib_band_t rig_get_band(RIG *rig, freq_t freq, int band)
         return RIG_BAND_UNUSED;
     }
 
-    for (i = 0 ; rig_bandselect_str[i].str != NULL; i++)
+    for (int i = 0 ; rig_bandselect_str[i].str != NULL; i++)
     {
         if (freq >= rig_bandselect_str[i].start && freq <= rig_bandselect_str[i].stop)
         {
@@ -3275,7 +3191,6 @@ hamlib_band_t rig_get_band(RIG *rig, freq_t freq, int band)
 int rig_get_band_rig(RIG *rig, freq_t freq, const char *band)
 {
     char bandlist[512];
-    int i;
 
     if (freq == 0 && band == NULL)
     {
@@ -3320,7 +3235,7 @@ int rig_get_band_rig(RIG *rig, freq_t freq, const char *band)
         return 0;
     }
 
-    for (i = 0 ; rig_bandselect_str[i].str != NULL; i++)
+    for (int i = 0 ; rig_bandselect_str[i].str != NULL; i++)
     {
         if (freq >= rig_bandselect_str[i].start && freq <= rig_bandselect_str[i].stop)
         {
