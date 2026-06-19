@@ -102,7 +102,7 @@
          { 241, 15.0f } \
     } }
 
-static struct cmdparams ic7760_extcmds[] =
+static const struct cmdparams ic7760_extcmds[] =
 {
     { {.s = RIG_LEVEL_VOXDELAY}, CMD_PARAM_TYPE_LEVEL, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x01, 0x82}, CMD_DAT_INT, 1 },
     { { 0 } }

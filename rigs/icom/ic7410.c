@@ -89,7 +89,7 @@
     } }
 
 
-static struct cmdparams ic7410_extcmds[] =
+static const struct cmdparams ic7410_extcmds[] =
 {
     { {.s = RIG_LEVEL_VOXDELAY}, CMD_PARAM_TYPE_LEVEL, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x00, 0x89}, CMD_DAT_INT, 1 },
     { {.s = RIG_PARM_KEYERTYPE}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x00, 0x75}, CMD_DAT_INT, 1 },

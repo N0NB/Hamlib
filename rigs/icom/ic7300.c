@@ -320,7 +320,7 @@ static const struct ts_sc_list ic9700_ts_sc_list[] =
     {0, 0},
 };
 
-static struct cmdparams ic7300_extcmds[] =
+static const struct cmdparams ic7300_extcmds[] =
 {
     { {.s = RIG_PARM_ANN}, CMD_PARAM_TYPE_PARM, C_CTL_ANN, 0, SC_MOD_WR, 0, {0x00}, CMD_DAT_INT, 1 },
     { {.s = RIG_PARM_BEEP}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x00, 0x23}, CMD_DAT_BOL, 1 },
@@ -337,7 +337,7 @@ static struct cmdparams ic7300_extcmds[] =
     { {.s = RIG_PARM_NONE} }
 };
 
-static struct cmdparams ic7300mk2_extcmds[] =
+static const struct cmdparams ic7300mk2_extcmds[] =
 {
     { {.s = RIG_PARM_ANN}, CMD_PARAM_TYPE_PARM, C_CTL_ANN, 0, SC_MOD_WR, 0, {0x00}, CMD_DAT_INT, 1 },
     { {.s = RIG_PARM_BEEP}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x00, 0x24}, CMD_DAT_BOL, 1 },
@@ -354,7 +354,7 @@ static struct cmdparams ic7300mk2_extcmds[] =
     { {.s = RIG_PARM_NONE} }
 };
 
-static struct cmdparams ic9700_extcmds[] =
+static const struct cmdparams ic9700_extcmds[] =
 {
     { {.s = RIG_PARM_ANN}, CMD_PARAM_TYPE_PARM, C_CTL_ANN, 0, SC_MOD_WR, 0, {0x00}, CMD_DAT_INT, 1 },
     { {.s = RIG_PARM_BEEP}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x00, 0x29}, CMD_DAT_BOL, 1 },
@@ -372,7 +372,7 @@ static struct cmdparams ic9700_extcmds[] =
     { {.s = RIG_PARM_NONE} }
 };
 
-static struct cmdparams ic705_extcmds[] =
+static const struct cmdparams ic705_extcmds[] =
 {
     { {.s = RIG_PARM_ANN}, CMD_PARAM_TYPE_PARM, C_CTL_ANN, 0, SC_MOD_WR, 0, {0x00}, CMD_DAT_INT, 1 },
     { {.s = RIG_PARM_BEEP}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x00, 0x31}, CMD_DAT_BOL, 1 },
@@ -389,7 +389,7 @@ static struct cmdparams ic705_extcmds[] =
     { {.s = RIG_PARM_NONE} }
 };
 
-static struct cmdparams ic905_extcmds[] =
+static const struct cmdparams ic905_extcmds[] =
 {
     { {.s = RIG_PARM_ANN}, CMD_PARAM_TYPE_PARM, C_CTL_ANN, 0, SC_MOD_WR, 0, {0x00}, CMD_DAT_INT, 1 },
     { {.s = RIG_PARM_BEEP}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x00, 0x33}, CMD_DAT_BOL, 1 },

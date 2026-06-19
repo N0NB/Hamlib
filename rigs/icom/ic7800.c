@@ -116,7 +116,7 @@
 int ic7800_set_level(RIG *rig, vfo_t vfo, setting_t level, value_t val);
 int ic7800_get_level(RIG *rig, vfo_t vfo, setting_t level, value_t *val);
 
-static struct cmdparams ic7800_extcmds[] =
+static const struct cmdparams ic7800_extcmds[] =
 {
     { {.s = RIG_LEVEL_VOXDELAY}, CMD_PARAM_TYPE_LEVEL, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x01, 0x83}, CMD_DAT_INT, 1 },
     { { 0 } }

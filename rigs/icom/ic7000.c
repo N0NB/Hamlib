@@ -150,7 +150,7 @@ static const struct ts_sc_list ic7000_ts_sc_list[] =
     {0, 0},
 };
 
-static struct cmdparams ic7000_extcmds[] =
+static const struct cmdparams ic7000_extcmds[] =
 {
     { {.s = RIG_LEVEL_VOXDELAY}, CMD_PARAM_TYPE_LEVEL, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x01, 0x17}, CMD_DAT_INT, 1 },
     { {.s = RIG_PARM_TIME}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x00, 0x41}, CMD_DAT_TIM, 2 },

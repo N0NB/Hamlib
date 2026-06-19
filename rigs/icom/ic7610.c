@@ -128,7 +128,7 @@
          { 241, 30.0f } \
     } }
 
-static struct cmdparams ic7610_extcmds[] =
+static const struct cmdparams ic7610_extcmds[] =
 {
     { {.s = RIG_PARM_BEEP}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x00, 0x24}, CMD_DAT_BOL, 1 },
     { {.s = RIG_PARM_BACKLIGHT}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x01, 0x41}, CMD_DAT_LVL, 2 },
