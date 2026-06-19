@@ -62,7 +62,7 @@ static int tt550_tx_filters[] =
  * We assume that rig!=NULL, STATE(rig)!= NULL, data!=NULL, data_len!=NULL
  * Otherwise, you'll get a nice seg fault. You've been warned!
  */
-int
+static int
 tt550_transaction(RIG *rig, const char *cmd, int cmd_len, char *data,
                   int *data_len)
 {
@@ -122,7 +122,7 @@ tt550_transaction(RIG *rig, const char *cmd, int cmd_len, char *data,
  * amplifier loop, enable/disable keep alive, etc.
  * This function provides for these commands.
  */
-int
+static int
 tt550_tx_control(RIG *rig, char oper)
 {
     int retval;
@@ -161,7 +161,7 @@ tt550_tx_control(RIG *rig, char oper)
  * $6<cr> = Inductor Dn
  * This function provides for these commands.
  */
-int
+static int
 tt550_ldg_control(RIG *rig, char oper)
 {
     int retval, lvl_len;
@@ -1571,7 +1571,7 @@ tt550_get_tuning_step(RIG *rig, vfo_t vfo, shortfreq_t *stepsize)
 /*
  * Tune the radio using the LDG antenna tuner
  */
-int
+static int
 tt550_tune(RIG *rig)
 {
     value_t current_power;

@@ -57,7 +57,7 @@
 
 #define IC756_ANTS (RIG_ANT_1|RIG_ANT_2)
 
-struct cmdparams ic756pro_cmdparms[] =
+static const struct cmdparams ic756pro_cmdparms[] =
 {
     { {.s = RIG_PARM_BEEP}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x00, 0x20}, CMD_DAT_BOL, 1 },
     { {.s = RIG_PARM_BACKLIGHT}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x00, 0x09}, CMD_DAT_LVL, 2 },
@@ -85,6 +85,16 @@ struct cmdparams ic756pro_cmdparms[] =
          { 228, 52 }, \
          { 247 ,60 } \
     } }
+
+static const struct ts_sc_list ic756_ts_sc_list[] =
+{
+    {10, 0x00},
+    {kHz(1), 0x01},
+    {kHz(5), 0x02},
+    {kHz(9), 0x03},
+    {kHz(10), 0x04},
+    {0, 0},
+};
 
 /*
  *  This function deals with the older type radios with only 2 filter widths

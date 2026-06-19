@@ -63,7 +63,27 @@
     { 255, 60 }, \
 } }
 
-struct cmdparams icr8600_extcmds[] =
+static const struct ts_sc_list r8600_ts_sc_list[] =
+{
+    {10, 0x00},
+    {100, 0x01},
+    {kHz(1), 0x02},
+    {kHz(2.5), 0x03},
+    {3125, 0x04},
+    {kHz(5), 0x05},
+    {6250, 0x06},
+    {8330, 0x07},
+    {kHz(9), 0x08},
+    {kHz(10), 0x09},
+    {kHz(12.5), 0x10},
+    {kHz(20), 0x11},
+    {kHz(25), 0x12},
+    {kHz(100), 0x13},
+    {0, 0x14},            /* programmable tuning step not supported */
+    {0, 0},
+};
+
+static struct cmdparams icr8600_extcmds[] =
 {
     { {.s = RIG_PARM_BEEP}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x00, 0x38}, CMD_DAT_BOL, 1 },
     { {.s = RIG_PARM_BACKLIGHT}, CMD_PARAM_TYPE_PARM, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x01, 0x15}, CMD_DAT_LVL, 2 },

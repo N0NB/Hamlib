@@ -313,16 +313,13 @@ struct icom_priv_data
 };
 
 extern const struct ts_sc_list r8500_ts_sc_list[];
-extern const struct ts_sc_list r8600_ts_sc_list[];
 extern const struct ts_sc_list ic737_ts_sc_list[];
 extern const struct ts_sc_list r75_ts_sc_list[];
 extern const struct ts_sc_list r7100_ts_sc_list[];
 extern const struct ts_sc_list r9000_ts_sc_list[];
 extern const struct ts_sc_list r9500_ts_sc_list[];
-extern const struct ts_sc_list ic756_ts_sc_list[];
 extern const struct ts_sc_list ic756pro_ts_sc_list[];
 extern const struct ts_sc_list ic706_ts_sc_list[];
-extern const struct ts_sc_list ic7000_ts_sc_list[];
 extern const struct ts_sc_list ic7100_ts_sc_list[];
 extern const struct ts_sc_list ic7200_ts_sc_list[];
 extern const struct ts_sc_list ic910_ts_sc_list[];

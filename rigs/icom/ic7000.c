@@ -134,6 +134,22 @@
         .levels = RIG_LEVEL_SET(IC7000_LEVELS), \
 }
 
+static const struct ts_sc_list ic7000_ts_sc_list[] =
+{
+    {10, 0x00},
+    {100, 0x01},
+    {kHz(1), 0x02},
+    {kHz(5), 0x03},
+    {kHz(9), 0x04},
+    {kHz(10), 0x05},
+    {12500, 0x06},
+    {kHz(20), 0x07},
+    {kHz(25), 0x08},
+    {kHz(100), 0x09},
+    {MHz(1), 0x10},
+    {0, 0},
+};
+
 static struct cmdparams ic7000_extcmds[] =
 {
     { {.s = RIG_LEVEL_VOXDELAY}, CMD_PARAM_TYPE_LEVEL, C_CTL_MEM, S_MEM_PARM, SC_MOD_RW, 2, {0x01, 0x17}, CMD_DAT_INT, 1 },

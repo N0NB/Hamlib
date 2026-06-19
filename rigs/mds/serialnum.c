@@ -18,7 +18,7 @@
     14 - PTT +5V
 */
 
-void serial_num(const char *s)
+static void serial_num(const char *s)
 {
     char model[16];
     char *operation;
