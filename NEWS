@@ -19,7 +19,7 @@ Version 5.x -- future
           (TNX George Baltz)
 
 Version 4.7.2
-        * 2026-06-15
+        * 2026-06-21
         * FTX-1: Rewrite set_channel using VFO-B + BM workaround, also fix
           the get_channel side, auto-exit Memory mode before VFO-state
           setters, and MC cursor targeting in ftx1_set_channel.  GitHub
@@ -46,7 +46,7 @@ Version 4.7.2
         * X6100: Fix power2mW for Xiegu X6100,  GitHub PR #2070.  (TNX Johannes
           Schwab)
         * rigctld:  Fix send_raw stack out-of-bounds write and uninitialized memory;
-          GitHub GHSA-gpcq-c37x-pr4.  (TNX George Baltz)
+          CVE-2026-54634/GitHub GHSA-gpcq-c37x-pr4.  (TNX George Baltz)
         * rigctld:  Fix stack/heap overflow primitive in read_string_generic +
           auth bypass in rigctld + weak password handling; GitHub GHSA-f72v-7gmh-m9mj.
           (TNX George Baltz)
