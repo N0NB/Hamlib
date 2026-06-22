@@ -280,9 +280,7 @@ static const antivox_cmd_entry_t antivox_cmd_table[] = {
  */
 static int lookup_antivox_cmd(nc_rigid_t rig_id, int is_get, const char **cmd)
 {
-    int i;
-
-    for (i = 0; antivox_cmd_table[i].set_cmd != NULL; i++)
+    for (int i = 0; antivox_cmd_table[i].set_cmd != NULL; i++)
     {
         if (antivox_cmd_table[i].rig_id == rig_id)
         {
@@ -1073,7 +1071,6 @@ int newcat_60m_exception(RIG *rig, freq_t freq, rmode_t mode)
     struct newcat_priv_data *priv = (struct newcat_priv_data *)STATE(rig)->priv;
     int err;
     int channel = -1;
-    int i;
     vfo_t vfo_mode;
 
     if (!(freq > 5.2 && freq < 5.5)) // we're not on 60M
@@ -1128,7 +1125,7 @@ int newcat_60m_exception(RIG *rig, freq_t freq, rmode_t mode)
     }
 
     // find the nearest slot below what is requested
-    for (i = 0; i < 5; ++i)
+    for (int i = 0; i < 5; ++i)
     {
         if ((long)freq == freq_60m[i]) { channel = i; }
     }
@@ -7331,7 +7328,7 @@ int newcat_set_bank(RIG *rig, vfo_t vfo, int bank)
 int newcat_set_mem(RIG *rig, vfo_t vfo, int ch)
 {
     struct newcat_priv_data *priv = (struct newcat_priv_data *)STATE(rig)->priv;
-    int err, i;
+    int err;
     ncboolean restore_vfo;
     chan_t *chan_list;
     channel_t valid_chan;
@@ -7346,7 +7343,7 @@ int newcat_set_mem(RIG *rig, vfo_t vfo, int ch)
 
     chan_list = rig->caps->chan_list;
 
-    for (i = 0; i < HAMLIB_CHANLSTSIZ && !RIG_IS_CHAN_END(chan_list[i]); i++)
+    for (int i = 0; i < HAMLIB_CHANLSTSIZ && !RIG_IS_CHAN_END(chan_list[i]); i++)
     {
         if (ch >= chan_list[i].startc &&
                 ch <= chan_list[i].endc)
@@ -9235,7 +9232,6 @@ static int set_roofing_filter(RIG *rig, vfo_t vfo, int index)
     char main_sub_vfo = '0';
     char roofing_filter_choice = 0;
     int err;
-    int i;
 
     ENTERFUNC;
 
@@ -9256,7 +9252,7 @@ static int set_roofing_filter(RIG *rig, vfo_t vfo, int index)
         RETURNFUNC(-RIG_ENAVAIL);
     }
 
-    for (i = 0; i < priv_caps->roofing_filter_count; i++)
+    for (int i = 0; i < priv_caps->roofing_filter_count; i++)
     {
         const struct newcat_roofing_filter *current_filter = &roofing_filters[i];
         char set_value = current_filter->set_value;
@@ -9298,7 +9294,6 @@ static int set_roofing_filter_for_width(RIG *rig, vfo_t vfo, int width)
 {
     struct newcat_priv_caps *priv_caps = (struct newcat_priv_caps *)rig->caps->priv;
     int index = 0;
-    int i;
 
     ENTERFUNC;
 
@@ -9307,7 +9302,7 @@ static int set_roofing_filter_for_width(RIG *rig, vfo_t vfo, int width)
         RETURNFUNC(-RIG_ENAVAIL);
     }
 
-    for (i = 0; i < priv_caps->roofing_filter_count; i++)
+    for (int i = 0; i < priv_caps->roofing_filter_count; i++)
     {
         const struct newcat_roofing_filter *current_filter =
                 &priv_caps->roofing_filters[i];
@@ -9342,7 +9337,6 @@ static int get_roofing_filter(RIG *rig, vfo_t vfo,
     char rf_vfo = 'X';
     int err;
     int n;
-    int i;
 
     ENTERFUNC;
 
@@ -9376,7 +9370,7 @@ static int get_roofing_filter(RIG *rig, vfo_t vfo,
         RETURNFUNC(-RIG_EPROTO);
     }
 
-    for (i = 0; i < priv_caps->roofing_filter_count; i++)
+    for (int i = 0; i < priv_caps->roofing_filter_count; i++)
     {
         struct newcat_roofing_filter *current_filter = &roofing_filters[i];
 
@@ -10987,9 +10981,7 @@ struct
 
 rmode_t newcat_rmode(char mode)
 {
-    int i;
-
-    for (i = 0; i < sizeof(newcat_mode_conv) / sizeof(newcat_mode_conv[0]); i++)
+    for (int i = 0; i < sizeof(newcat_mode_conv) / sizeof(newcat_mode_conv[0]); i++)
     {
         if (newcat_mode_conv[i].modechar == mode)
         {
@@ -11004,9 +10996,7 @@ rmode_t newcat_rmode(char mode)
 
 char newcat_modechar(rmode_t rmode)
 {
-    int i;
-
-    for (i = 0; i < sizeof(newcat_mode_conv) / sizeof(newcat_mode_conv[0]); i++)
+    for (int i = 0; i < sizeof(newcat_mode_conv) / sizeof(newcat_mode_conv[0]); i++)
     {
         if (newcat_mode_conv[i].mode == rmode)
         {
@@ -11022,13 +11012,12 @@ char newcat_modechar(rmode_t rmode)
 rmode_t newcat_rmode_width(RIG *rig, vfo_t vfo, char mode, pbwidth_t *width)
 {
     ncboolean narrow;
-    int i;
 
     ENTERFUNC2;
 
     *width = RIG_PASSBAND_NORMAL;
 
-    for (i = 0; i < sizeof(newcat_mode_conv) / sizeof(newcat_mode_conv[0]); i++)
+    for (int i = 0; i < sizeof(newcat_mode_conv) / sizeof(newcat_mode_conv[0]); i++)
     {
         if (newcat_mode_conv[i].modechar == mode)
         {
