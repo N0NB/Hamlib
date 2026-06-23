@@ -18,6 +18,9 @@ Version 5.x -- future
           its command set is unchanged from the base model.  GitHub PR #2041
           (TNX George Baltz)
 
+Version 4.7.3
+        * 2026-??-??
+
 Version 4.7.2
         * 2026-06-21
         * FTX-1: Rewrite set_channel using VFO-B + BM workaround, also fix
