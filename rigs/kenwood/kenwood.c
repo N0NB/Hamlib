@@ -882,6 +882,7 @@ int kenwood_init(RIG *rig)
             || rig->caps->rig_model == RIG_MODEL_TS140S
             || rig->caps->rig_model == RIG_MODEL_TS2000
             || rig->caps->rig_model == RIG_MODEL_TS440
+            || rig->caps->rig_model == RIG_MODEL_TS790
             || rig->caps->rig_model == RIG_MODEL_QRPLABS)
     {
         priv->has_ps = 0;
@@ -1397,9 +1398,13 @@ int kenwood_set_vfo(RIG *rig, vfo_t vfo)
     HAMLIB_TRACE;
     SNPRINTF(cmdbuf, sizeof(cmdbuf), "FR%c", vfo_function);
 
+    if (RIG_IS_TS50 || RIG_IS_TS790 || RIG_IS_TS940)
+    {
+        cmdbuf[1] = 'N';
+    }
     // as we change VFO we will change split to the other VFO
     // some rigs turn split off with FR command
-    if (priv->split)
+    else if (priv->split)
     {
         if (vfo_function == '0')
         {
@@ -1409,11 +1414,6 @@ int kenwood_set_vfo(RIG *rig, vfo_t vfo)
         {
             strcat(cmdbuf, ";FT0");
         }
-    }
-
-    if (RIG_IS_TS50 || RIG_IS_TS940)
-    {
-        cmdbuf[1] = 'N';
     }
 
     /* set RX VFO */
