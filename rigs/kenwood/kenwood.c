@@ -340,10 +340,10 @@ int kenwood_transaction(RIG *rig, const char *cmdstr, char *data,
     }
 
     if (cmdstr && (strlen(cmdstr) > 2 || strcmp(cmdstr, "RX") == 0
-                   || strncmp(cmdstr, "TX", 2) == 0 || strncmp(cmdstr, "ZZTX", 4)) == 0)
+                   || strncmp(cmdstr, "TX", 2) == 0))
     {
         // then we must be setting something so we'll invalidate the cache
-        rig_debug(RIG_DEBUG_TRACE, "%s: cache invalidated\n", __func__);
+        rig_debug(RIG_DEBUG_CACHE, "%s: cache invalidated\n", __func__);
         priv->cache_start.tv_sec = 0;
     }
 
