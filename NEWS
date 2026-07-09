@@ -20,6 +20,8 @@ Version 5.x -- future
 
 Version 4.7.3
         * 2026-??-??
+        * TS-790: Fix split operation and correct cache invalidation.
+          GitHub issue #2084 and GitHub PR #2086.  (TNX George Baltz)
 
 Version 4.7.2
         * 2026-06-21
