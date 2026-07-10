@@ -546,7 +546,7 @@ The Hamlib project accepts contributions on the "honor system".  It is implied
 that contributions are the original works of their respective authors and
 offered under the license terms of the GPL 2.0 or LGPL 2.1.  The Project's
 original stance was that use of LLM generated code breaks this model and that
-contributors of such code cannot claim it as their own original work  However,
+contributors of such code cannot claim it as their own original work.  However,
 recent contributions have clearly disclosed the use of LLM's such as Claude or
 security LLMs to assist with development of code contributed to Hamlib and this
 code has been reviewed, accepted, and committed to the repository.
